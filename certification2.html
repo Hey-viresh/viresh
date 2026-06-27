@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viresh Kumar — CERTIFICATIONS</title>
+
+    <!-- Prevent theme flash -->
+    <script>
+        (function () {
+            const stored = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = stored || (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@200;300;400&family=Fira+Code:wght@400&display=swap">
+</head>
+
+<style>
+    :root {
+        --bg: #f2ede7;
+        --text: #161616;
+        --text-emp: #333;
+        --text-mute: #535353;
+        --text-faint: #b1b1b1;
+        --line: #e5e5e5;
+        --inverse: #ffffff;
+        --ease-quiet: cubic-bezier(.22, 1, .36, 1);
+        --ease-precise: cubic-bezier(.4, 0, .2, 1);
+        --ease-emphasis: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    html[data-theme="dark"] {
+        --bg: #131313;
+        --text: #f2ede7;
+        --text-emp: #e5e0da;
+        --text-mute: #a0a0a0;
+        --text-faint: #4a4a4a;
+        --line: #2a2a2a;
+        --inverse: #000000;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html,
+    body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter', sans-serif;
+        font-weight: 300;
+        line-height: 1.7;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        transition: background-color .6s var(--ease-quiet), color .6s var(--ease-quiet);
+    }
+
+    body {
+        overflow-x: hidden;
+        padding: 2rem;
+    }
+
+    h1 {
+        font-family: 'EB Garamond', serif;
+        font-weight: 400;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        text-align: center;
+        margin-bottom: 4rem;
+        color: var(--text);
+        letter-spacing: -0.01em;
+    }
+
+    .section-label {
+        font-family: 'Fira Code', monospace;
+        font-size: 11px;
+        letter-spacing: .25em;
+        text-transform: uppercase;
+        color: var(--text-mute);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .section-label::before {
+        content: '';
+        width: 32px;
+        height: 1px;
+        background: var(--text-mute);
+    }
+
+    .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .cert-card {
+        position: relative;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        transition: border-color .4s var(--ease-quiet), transform .4s var(--ease-quiet);
+    }
+
+    .cert-card:hover {
+        border-color: var(--text-emp);
+        transform: translateY(-4px);
+    }
+
+    .cert-card img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        display: block;
+        transition: filter 0.4s var(--ease-quiet);
+    }
+
+    .cert-card:hover img {
+        filter: brightness(0.45);
+    }
+
+    .view-btn-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+        transition: background-color 0.4s var(--ease-quiet);
+        opacity: 0;
+        transition: opacity 0.4s var(--ease-quiet);
+    }
+
+    .cert-card:hover .view-btn-container {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .view-btn {
+        background-color: var(--text-emp);
+        color: var(--bg);
+        border: 1px solid var(--text-emp);
+        padding: 12px 32px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: 'Fira Code', monospace;
+        font-size: 11px;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        font-weight: 400;
+        transition: background-color 0.3s var(--ease-quiet), transform 0.3s var(--ease-quiet), color 0.3s var(--ease-quiet);
+    }
+
+    .view-btn:hover {
+        background-color: transparent;
+        color: var(--bg);
+        transform: scale(1.05);
+    }
+
+    /* Fullscreen modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.95);
+        animation: fadeIn 0.3s var(--ease-quiet);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 90%;
+        max-width: 90%;
+        height: 90%;
+        object-fit: contain;
+        padding-top: 5%;
+    }
+
+    .close-modal {
+        position: fixed;
+        top: 30px;
+        right: 40px;
+        color: white;
+        font-size: 40px;
+        font-weight: 300;
+        cursor: pointer;
+        z-index: 1001;
+        transition: color 0.3s var(--ease-quiet);
+        font-family: 'EB Garamond', serif;
+    }
+
+    .close-modal:hover {
+        color: #ccc;
+    }
+
+    /* Theme toggle button */
+    .theme-toggle {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+        font-family: 'Fira Code', monospace;
+        font-size: 11px;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        color: var(--text-mute);
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: color 0.3s var(--ease-quiet);
+        z-index: 999;
+    }
+
+    .theme-toggle:hover {
+        color: var(--text-emp);
+    }
+
+    /* Mobile: 1 certificate per row */
+    @media (max-width: 768px) {
+        .cert-grid {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        .modal-content {
+            width: 95%;
+            max-width: 95%;
+            height: 95%;
+            padding-top: 10%;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 2.5rem;
+        }
+
+        body {
+            padding: 1.2rem;
+        }
+
+        .theme-toggle {
+            top: 1.2rem;
+            right: 1.2rem;
+            font-size: 10px;
+        }
+    }
+
+    /* Back to Home Button */
+    .back-home-btn {
+        position: fixed;
+        top: 4rem;
+        left: 2rem;
+        display: flex;
+        align-items: center;
+        gap: .6rem;
+        font-family: 'Fira Code', monospace;
+        font-size: 11px;
+        letter-spacing: .15em;
+        text-transform: uppercase;
+        color: var(--text-mute);
+        text-decoration: none;
+        transition: color 0.3s var(--ease-quiet);
+        z-index: 999;
+    }
+
+    .back-home-btn:hover {
+        color: var(--text-emp);
+    }
+
+    .back-home-btn .arrow {
+        display: inline-block;
+        transition: transform 0.3s var(--ease-quiet);
+    }
+
+    .back-home-btn:hover .arrow {
+        transform: translateX(-6px);
+    }
+
+    /* Mobile: Adjust positioning */
+    @media (max-width: 768px) {
+        .back-home-btn {
+            top: 1.2rem;
+            left: 1.2rem;
+            font-size: 10px;
+        }
+
+        .theme-toggle {
+            top: 1.2rem;
+            right: 1.2rem;
+        }
+    }
+
+    /* === view all certifications button === */
+    .cert-action {
+        margin-top: 3rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--line);
+        text-align: center;
+    }
+
+    .view-all-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: .8rem;
+        font-family: 'Fira Code', monospace;
+        font-size: 11px;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: var(--text);
+        padding: 12px 32px;
+        border: 1px solid var(--text-mute);
+        border-radius: 4px;
+        transition: border-color .4s var(--ease-quiet), color .4s var(--ease-quiet), background .4s var(--ease-quiet);
+        position: relative;
+    }
+
+    .view-all-btn .arrow {
+        display: inline-block;
+        transition: transform .4s var(--ease-quiet);
+    }
+
+    .view-all-btn:hover {
+        border-color: var(--text-emp);
+        color: var(--text-emp);
+    }
+
+    .view-all-btn:hover .arrow {
+        transform: translateX(6px);
+    }
+
+    @media (max-width:768px) {
+        .cert-action {
+            margin-top: 2rem;
+            padding-top: 1.5rem
+        }
+
+        .view-all-btn {
+            font-size: 10px;
+            padding: 10px 24px
+        }
+    }
+</style>
+
+<body>
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-home-btn" aria-label="Back to home">
+        <span class="arrow">←</span>
+        <span>Back to Home</span>
+    </a>
+
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+        <span class="theme-label">Dark</span>
+    </button>
+
+    <main>
+        <div class="section-label">05 — Certifications</div>
+        <h1>Professional Certifications</h1>
+
+        <div class="cert-grid">
+            <div class="cert-card">
+                <img src="FREECODECAMP.png"
+                    alt="Certification 1">
+                <div class="view-btn-container">
+                    <button class="view-btn"
+                        onclick="openModal(this.parentElement.previousElementSibling.src)">View</button>
+                </div>
+            </div>
+            <div class="cert-card">
+                <img src="AWS Forage.jpeg"
+                    alt="Certification 2">
+                <div class="view-btn-container">
+                    <button class="view-btn"
+                        onclick="openModal(this.parentElement.previousElementSibling.src)">View</button>
+                </div>
+            </div>
+            <div class="cert-card">
+                <img src="Deloitte Data Analytics.jpeg"
+                    alt="Certification 3">
+                <div class="view-btn-container">
+                    <button class="view-btn"
+                        onclick="openModal(this.parentElement.previousElementSibling.src)">View</button>
+                </div>
+            </div>
+            <div class="cert-card">
+                <img src="Simplilearn UI.png"
+                    alt="Certification 4">
+                <div class="view-btn-container">
+                    <button class="view-btn"
+                        onclick="openModal(this.parentElement.previousElementSibling.src)">View</button>
+                </div>
+            </div>
+            <div class="cert-card">
+                <img src="Google Cloud X Simplilearn Gen AI.png">
+                <div class="view-btn-container">
+                    <button class="view-btn"
+                        onclick="openModal(this.parentElement.previousElementSibling.src)">View</button>
+                </div>
+            </div>
+            <div class="cert-card">
+                <img src="Ducat C.png">
+                <div class="view-btn-container">
+                    <button class="view-btn"
+                        onclick="openModal(this.parentElement.previousElementSibling.src)">View</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fullscreen Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // Theme toggle
+        const toggle = document.getElementById('theme-toggle');
+        const label = toggle.querySelector('.theme-label');
+
+        function updateLabel() {
+            const current = document.documentElement.getAttribute('data-theme');
+            label.textContent = current === 'light' ? 'dark' : 'light';
+        }
+        updateLabel();
+
+        toggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateLabel();
+        });
+
+        // Modal functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when pressing Escape key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+
+</html>
